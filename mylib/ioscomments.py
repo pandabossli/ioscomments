@@ -29,10 +29,12 @@ class ioscomments():
             return -1
 
     def run(self):
-        url = 'https://itunes.apple.com/' + self.country + '/rss/customerreviews/page=' + str(self.page) + '/id=' + self.productid + '/sortby=mostrecent/json'
+        url = 'https://itunes.apple.com/WebObjects/MZStore.woa/wa/userReviewsRow?cc=' + self.country + '&id=' + self.productid + '&displayable-kind=11&startIndex=' + str((self.page -1) * 100 ) + '&endIndex=' + str((self.page) * 100 ) + '&sort=0&appVersion=all'
+        # url = 'https://itunes.apple.com/' + self.country + '/rss/customerreviews/page=' + str(self.page) + '/id=' + self.productid + '/sortby=mostrecent/json'
+
         header = {
             # "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11"
-            "User-Agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 13_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.1 Mobile/15E148 Safari/604.1"
+            "User-Agent":"iTunes/11.0 (Windows; Microsoft Windows 7 Business Edition Service Pack 1 (Build 7601)) AppleWebKit/536.27.1"
         }
         context = ssl._create_unverified_context()
         request = urllib.request.Request(url, headers=header)
@@ -50,19 +52,20 @@ class ioscomments():
 
         except Exception as e:
             self.stop = True
+            print(url)
             print(e)
             return
 
     def dell(self,result):
         try:
             result = json.loads(result,encoding='utf-8')
-            if result['feed']['entry']:
-                for entry in result['feed']['entry']:
-                    author  = entry['author']['name']['label']
-                    version = entry['im:version']['label']
-                    star    = entry['im:rating']['label']
-                    title   = entry['title']['label']
-                    content = entry['content']['label']
+            if result['userReviewList']:
+                for entry in result['userReviewList']:
+                    author  = entry['name']
+                    version = "1"
+                    star    = str(entry['rating'])
+                    title   = entry['title']
+                    content = entry['body']
                     self.set(author,version,star,title,content)
         except Exception as e:
             print(e)

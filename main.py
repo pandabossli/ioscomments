@@ -4,17 +4,25 @@
 from mylib import ioscomments,ioswindow
 import time
 import _thread
+from tkinter import messagebox
 
 def printComments(comments,textarea,star):
     while True:
         item = comments.get()
         if item == -1:
+            tc3 = messagebox.showinfo(title='已完成', message='已完成')
             break
         elif item != 0:
             if star == -1:
-                textarea.insert('end', item['title']+"\t"+item['content']+"\n")
+                try:
+                    textarea.insert('end', item['title']+"\t"+item['content']+"\n")
+                except Exception as e:
+                    print(e)
             elif star == item['star']:
-                textarea.insert('end', item['title'] + "\t" + item['content'] + "\n")
+                try:
+                    textarea.insert('end', item['title']+"\t"+item['content']+"\n")
+                except Exception as e:
+                    print(e)
             print(item)
 
 def  runComments(comments):
@@ -51,7 +59,7 @@ if __name__ == '__main__':
     b = tk.Button(window, text="开始采集", font=('Arial', 12), width=10, height=1, command=start)
     b.place(anchor='nw',x=0,y=60)
 
-    textArea = tk.Text(window, height=10)
+    textArea = tk.Text(window, height=30,width=200)
     textArea.place(anchor='nw',x=0,y=90)
 
     ioswindow.openWindow()
