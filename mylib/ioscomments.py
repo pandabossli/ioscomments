@@ -29,7 +29,7 @@ class ioscomments():
             return -1
 
     def run(self):
-        url = 'https://itunes.apple.com/WebObjects/MZStore.woa/wa/userReviewsRow?cc=' + self.country + '&id=' + self.productid + '&displayable-kind=11&startIndex=' + str((self.page -1) * 100 ) + '&endIndex=' + str((self.page) * 100 ) + '&sort=0&appVersion=all'
+        url = 'https://itunes.apple.com/WebObjects/MZStore.woa/wa/userReviewsRow?cc=' + self.country + '&id=' + self.productid + '&displayable-kind=11&startIndex=' + str((self.page -1) * 50 ) + '&endIndex=' + str((self.page) * 100 ) + '&sort=0&appVersion=all'
         # url = 'https://itunes.apple.com/' + self.country + '/rss/customerreviews/page=' + str(self.page) + '/id=' + self.productid + '/sortby=mostrecent/json'
 
         header = {
@@ -67,5 +67,7 @@ class ioscomments():
                     title   = entry['title']
                     content = entry['body']
                     self.set(author,version,star,title,content)
+            else:
+                self.stop = True
         except Exception as e:
             print(e)
