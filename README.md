@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title></title>
+	
 </head>
 <body>
 	<h2>IOS 好评</h2>
@@ -20,8 +20,8 @@
 		main.py:集成采集、下载excel功能
 	</p>
 	<p>
-		<img src="images/1571808549594.jpg" alt="" style="width:200px;" />
-		<img src="images/mm_facetoface_collect_qrcode_1571808173072.png" alt="" style="width:200px;" />
+		<img src="images/1571808549594.jpg" alt="" width=200 />
+		<img src="images/mm_facetoface_collect_qrcode_1571808173072.png" alt="" width=200 />
 	</p>
 </body>
 </html>
